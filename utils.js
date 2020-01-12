@@ -1,4 +1,15 @@
 function getMoveProbability(message) {
+    const MAX_MOVE_PROBABILITY;
+    let move_probability = 0;
+    message.split(' ').forEach(word => {
+        if(word.includes('yeet') && move_probability < MAX_MOVE_PROBABILITY) {
+            move_probability += 0.1
+            if(move_probability > MAX_MOVE_PROBABILITY) {
+                move_probability = MAX_MOVE_PROBABILITY;
+            }
+        }
+    })
+    return move_probability
 }
 
 function movePabs(){
