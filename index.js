@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 const KICK_MESSAGE = 'Yeetus Deletus \nYou are now a fetus';
 const MAX_YEETS_THRESHOLD = 10; // stops affecting move probability at this point
 const token_path = '/Users/Grievous/.hidden_files/discord_yeet_bot.json'
-const client = new Discord.Client();
+const client = new Discord.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
 
 let token = null;
 fs.readFile(token_path, (err, data) => {
@@ -25,6 +25,7 @@ function movePabs(){
 function initializeBot() {
   client.on('ready', () => {
     console.log('yeety boy here');
+    console.log('client.channels: ', client.channels);
     // console.log('this: ', this);
     // let data = {};
     // let textChannel = null;
@@ -40,7 +41,7 @@ function initializeBot() {
       }
       if (Math.random() <= yeet_count/MAX_YEETS_THRESHOLD) {
         console.log('movemovemove');
-        movePabs()
+        movePabs();
       }
       else {
         console.log('nonono');
@@ -53,9 +54,13 @@ function initializeBot() {
     }
   });
 
-  client.on('messageReaction', (msgRe, user) => {
-    console.log('msgRe: ', msgRe);
+  client.on('messageReactionAdd', (msgRe, user) => {
+    // console.log('msgRe: ', msgRe);
     console.log('user: ', user);
+    // let user_id = user.id;
+    let guildy = msgRe.message.guild;
+    // console.log('guild? ', guildy);
+    let member = guildy.member(user);
   });
 
 
