@@ -25,15 +25,15 @@ function movePabs(){
 
 
 function moveMessager(msg) {
-  // console.log('msg.guild.name: ', msg.guild.name);
-  const voice_channels = msg.guild.channels.filter(chan => chan.type == VOICE_CHANNEL_TYPE);
+  const voice_channels = msg.guild.channels.cache.filter(chan => chan.type == VOICE_CHANNEL_TYPE);;
   voice_channels.forEach(v_chan => {
     console.log(`got ${v_chan.members.size} members in ${v_chan.name}`);
     v_chan.members.forEach(mem => {
-      // if (mem.user.id == msg.user.id) {
       if (mem.id == msg.member.id) {
         console.log('we got him boys: ', mem.user.id);
-        mem.kick('just for fun');
+        mem.voice.kick('just for fun').then(() => {
+          console.log('should be kicked!');
+        });
       }
     });
   });
@@ -44,10 +44,6 @@ function initializeBot() {
   client.on('ready', () => {
     console.log('yeety boy here');
     console.log('client.channels: ', client.channels);
-    // console.log('this: ', this);
-    // let data = {};
-    // let textChannel = null;
-    // Discord.Message(this, data, textChannel);
   });
 
   
@@ -67,11 +63,6 @@ function initializeBot() {
         movePabs();
       }
     }
-
-    // if (msg.author !== client.user) {
-    //   console.log('say hi');
-    //   msg.channel.send('hi');
-    // }
   });
 
   client.on('messageReactionAdd', (msgRe, user) => {
