@@ -82,19 +82,20 @@ function initializeBot() {
 
   
   client.on('message', msg => {
-    moveRandomVoice(msg);
-
     const msg_lowercase = msg.content.toLowerCase();
+    let bad_word_count = utils.getBadBoyCount(msg_lowercase);
+    console.log('bad_word_count: ', bad_word_count);
 
-    // let bad_word_count = utils.getYeetCount(msg_lowercase);
-    let bad_word_count = utils.getYeetCount(msg_lowercase);
     if(bad_word_count) {
       if(bad_word_count > MAX_YEETS_THRESHOLD) {
         bad_word_count = MAX_YEETS_THRESHOLD;
       }
       if (Math.random() <= bad_word_count/MAX_YEETS_THRESHOLD) {
         console.log('movemovemove');
-        movePabs();
+        moveRandomVoice(msg);
+      }
+      else {
+        console.log('no dice');
       }
     }
   });
