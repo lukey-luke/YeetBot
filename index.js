@@ -2,7 +2,6 @@ const utils = require('./utils.js');
 const fs = require('fs');
 const Discord = require('discord.js');
 
-const KICK_MESSAGE = 'Yeetus Deletus \nYou are now a fetus';
 const MAX_YEETS_THRESHOLD = 10; // stops affecting move probability at this point
 const token_path = '/Users/Grievous/.hidden_files/discord_yeet_bot.json'
 const client = new Discord.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
@@ -14,14 +13,6 @@ fs.readFile(token_path, (err, data) => {
   token = JSON.parse(data)["TOKEN"];
   initializeBot();
 });
-
-function movePabs(){
-  const pabs = getPabsUser();
-  // const pabs_channel = getPabsChannel();
-  if (pabs) {
-    const voice_channels = getVoiceChannels();
-  }
-}
 
 
 function moveMessager(msg) {
@@ -100,19 +91,5 @@ function initializeBot() {
     }
   });
 
-  client.on('messageReactionAdd', (msgRe, user) => {
-    // console.log('msgRe: ', msgRe);
-    console.log('user: ', user);
-    // let user_id = user.id;
-    console.log('msgRe.message:', msgRe.message);
-    let guildy = msgRe.message.guild;
-    console.log('guild? ', guildy.name);
-    let member = guildy.member(user);
-    console.log('member? ', member);
-  });
-
-
   client.login(token);
 }
-
-// setInterval(() => {utils.movePabs()}, PABS_CHECK_TIME);
